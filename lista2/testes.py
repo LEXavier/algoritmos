@@ -1,4 +1,5 @@
 import unittest
+from array import array
 
 from estruturas import (
     Deque,
@@ -8,7 +9,12 @@ from estruturas import (
     Pilha,
     PilhaDuplaFila,
     FilaDuplaPilha,
-    PilhaMin
+    PilhaMin,
+    PegaEntreMaioresNaoOrdenado,
+    PegaEntreMaioresOrdenadoIneficiente,
+    PegaEntreMaioresOrdenadoEficiente,
+    PegaEntreMaioresQuickSelect,
+    SacoVaiEVem
 )
 
 from operacoes import (
@@ -17,18 +23,9 @@ from operacoes import (
     inverte_pilha_com_pilha,
     inverte_fila_com_pilha,
     inverte_fila_com_duas_filas,
-    avalia_polonesa,
-    polonesa,
+    avalia_polonesa_reversa,
+    polonesa_reversa,
 )
-
-from pega_entre_maiores import (
-    PegaEntreMaioresNaoOrdenado,
-    PegaEntreMaioresOrdenadoIneficiente,
-    PegaEntreMaioresOrdenadoEficiente,
-    PegaEntreMaioresQuickSelect,
-)
-
-from saco import SacoVaiEVem
 
 
 # ============================================================
@@ -319,20 +316,20 @@ class TestePilhaMin(unittest.TestCase):
         for valor in [5, 2, 8, 1, 3]:
             pilha.empilha(valor)
 
-        self.assertEqual(pilha.obterMinimo(), 1)
+        self.assertEqual(pilha.obter_minimo(), 1)
         self.assertEqual(pilha.topo(), 3)
 
         self.assertEqual(pilha.desempilha(), 3)
-        self.assertEqual(pilha.obterMinimo(), 1)
+        self.assertEqual(pilha.obter_minimo(), 1)
 
         self.assertEqual(pilha.desempilha(), 1)
-        self.assertEqual(pilha.obterMinimo(), 2)
+        self.assertEqual(pilha.obter_minimo(), 2)
 
     def test_pilha_min_vazia(self):
         pilha = PilhaMin(5)
 
         with self.assertRaises(IndexError):
-            pilha.obterMinimo()
+            pilha.obter_minimo()
 
 
 # ============================================================
@@ -342,19 +339,19 @@ class TestePilhaMin(unittest.TestCase):
 class TestePolonesa(unittest.TestCase):
 
     def test_avaliacao(self):
-        resultado = avalia_polonesa(
-            "AB+",
-            {"A": 3, "B": 4}
+        resultado = avalia_polonesa_reversa(
+            "AB+CED/-*",
+            valores = array('i', [3, 3, 2, 1, 1])
         )
 
-        self.assertEqual(resultado, 7)
+        self.assertEqual(resultado, 6)
 
     def test_conversao(self):
-        resultado = polonesa(
-            "((A+B)*(C-(F/D)))"
+        resultado = polonesa_reversa(
+            "((A*B)-(C/D))"
         )
 
-        self.assertIsNotNone(resultado)
+        self.assertEqual(resultado, array('w', ['A','B', '*', 'C', 'D', '/', '-']))
 
 
 # ============================================================

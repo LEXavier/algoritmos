@@ -305,17 +305,125 @@ class FilaDuplaPilha:
 
 class PilhaMin:
 
-    def __init__(self, tamanho):
-       self.__tamanho = tamanho
+  def __init__(self, tamanho):
+    self.__tamanho = tamanho
+    self.__quantidade = 0
+    # self.__minimo = None
+    self.__dados = array('i', tamanho * [0])
+    self.__minimos = PilhaInt(tamanho)
 
-    def get_tamanho(self):
-       return self.__tamanho
+  def get_tamanho(self):
+    return self.__tamanho
 
-    def topo(self):
-       raise NotImplementedError
+  def topo(self):
+    # O(1)
+    if self.__quantidade <= 0:
+      raise IndexError('Pilha vazia')
+    return self.__dados[self.__quantidade-1]       
 
-    def empilha(self, valor):
-       raise NotImplementedError
+  def empilha(self, valor):
+    if self.__quantidade >= self.__tamanho:
+      raise OverflowError('Pilha cheia')
+    
+    self.__dados[self.__quantidade] = valor
+    
+    if self.__quantidade == 0:
+      self.__minimos.empilha(valor) # O(1)
+    else:
+      if self.__minimos.topo() > valor :
+        self.__minimos.empilha(valor) # O(1)
+      
+    self.__quantidade = self.__quantidade + 1
 
-    def desempilha(self):
-       raise NotImplementedError
+  def desempilha(self):
+    if self.__quantidade <= 0 :
+      raise IndexError('Pilha vazia')
+    
+    dado = self.__dados[self.__quantidade-1]
+    
+    if self.__minimos.topo() == dado :
+      self.__minimos.desempilha()
+      
+    self.__quantidade = self.__quantidade - 1
+    
+    return dado
+
+  def obter_minimo(self):
+    if self.__quantidade <= 0:
+      raise IndexError('Pilha vazia')
+    return self.__minimos.topo()
+  
+class PilhaInt:
+
+  def __init__(self, tamanho):
+    self.tamanho = tamanho
+    self.__tamanho = tamanho
+    self.__quantidade = 0
+    self.__dados = array('i', [0]*tamanho)
+
+  def empilha(self, valor):
+    # O(1)
+    if self.__quantidade >= self.__tamanho:
+      raise OverflowError('Pilha cheia')
+
+    self.__dados[self.__quantidade] = valor
+    self.__quantidade = self.__quantidade + 1
+
+  def desempilha(self):
+    # O(1)
+    if self.__quantidade <= 0:
+      raise IndexError('Pilha vazia')
+
+    valor = self.__dados[self.__quantidade-1]
+    self.__quantidade = self.__quantidade - 1
+
+    return valor
+
+  def topo(self):
+    return self.__dados[self.__quantidade - 1]
+
+  def get_tamanho(self):
+    return self.__tamanho
+
+  def get_quantidade(self):
+    return self.__quantidade
+  
+class PegaEntreMaiores:
+  
+  def __init__(self):
+    pass
+  
+  def insere(self, valor):
+    raise NotImplementedError
+  
+  def maior(self):
+    return self.kmaior(1)
+  
+  def segundo_maior(self):
+    return self.kmaior(2)
+  
+  def kmaior(self, k):
+    raise NotImplementedError
+  
+  def tamanho(self):
+    raise NotImplementedError
+
+class PegaEntreMaioresNaoOrdenado:
+  def __init__(self):
+    pass
+
+class PegaEntreMaioresOrdenadoIneficiente:
+  def __init__(self):
+    pass
+
+class PegaEntreMaioresOrdenadoEficiente:
+  def __init__(self):
+    pass
+
+class PegaEntreMaioresQuickSelect:
+  def __init__(self):
+    pass
+  
+class SacoVaiEVem:
+  def __init__(self):
+    pass
