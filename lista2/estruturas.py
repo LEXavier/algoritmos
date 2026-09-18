@@ -409,8 +409,54 @@ class PegaEntreMaiores:
     raise NotImplementedError
 
 class PegaEntreMaioresNaoOrdenado:
-  def __init__(self):
-    pass
+  def __init__(self, tamanho):
+    self.__dados = array('i', [0] * tamanho)
+    self.__quantidade = 0
+    self.__tamanho = tamanho
+  
+  def insere(self, valor):
+    self.__dados[self.__quantidade] = valor
+    self.__quantidade += 1
+  
+  def maior(self):
+    if self.__quantidade <= 0:
+      raise IndexError('TAD vazio')
+                       
+    maior = -1
+    
+    for i in range(self.__quantidade):
+      if self.__dados[i] > maior :
+        maior = self.__dados[i]
+    return maior
+      
+    
+  
+  def segundo_maior(self):
+    
+    maiores = array('i', [-1,-1])
+    
+    for i in range(self.__quantidade):
+      
+      if self.__dados[i] > maiores[0]:
+        maiores[1] = maiores[0]
+        maiores[0] = self.__dados[i]
+      elif self.__dados[i] > maiores[1]:
+        maiores[1] = self.__dados[i]
+        
+    return maiores[1]
+  
+  def kmaior(self, k):
+    
+    for i in range(self.__quantidade):
+      n_maiores = 0
+      for j in range(self.__quantidade):
+        if self.__dados[j] > self.__dados[i]:
+          n_maiores += 1
+      if n_maiores == k - 1:
+        return self.__dados[i] 
+        
+  def tamanho(self):
+    return self.__tamanho
 
 class PegaEntreMaioresOrdenadoIneficiente:
   def __init__(self):
