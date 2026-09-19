@@ -1,8 +1,9 @@
-from typing import Protocol, TypeVar 
+from typing import Protocol, TypeVar, runtime_checkable
 from array import array
 
 t = TypeVar("t")
 
+@runtime_checkable
 class FilaTAD[t](Protocol):
     
     def enfileira(self, valor: t) -> None:
