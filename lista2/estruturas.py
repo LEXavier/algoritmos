@@ -221,87 +221,11 @@
 
 # #################################
 
-# class Pilha:
 
-#   def __init__(self, tamanho):
-#     self.tamanho = tamanho
-#     self.__tamanho = tamanho
-#     self.__quantidade = 0
-#     self.__dados = array('w', '\0'*tamanho)
-
-#   def empilha(self, valor):
-#     # O(1)
-#     if self.__quantidade >= self.__tamanho:
-#       raise OverflowError('Pilha cheia')
-
-#     self.__dados[self.__quantidade] = valor
-#     self.__quantidade = self.__quantidade + 1
-
-#   def desempilha(self):
-#     # O(1)
-#     if self.__quantidade <= 0:
-#       raise IndexError('Pilha vazia')
-
-#     valor = self.__dados[self.__quantidade-1]
-#     self.__dados[self.__quantidade - 1] = '\0'
-#     self.__quantidade = self.__quantidade - 1
-
-#     return valor
-
-#   def topo(self):
-#     return self.__dados[self.__quantidade - 1]
-
-#   def get_tamanho(self):
-#     return self.__tamanho
-
-#   def get_quantidade(self):
-#     return self.__quantidade
 
 # #################################``
 
-# class FilaDuplaPilha:
 
-#   def __init__(self, tamanho):
-
-#     self.__tamanho = tamanho
-#     self.__quantidade = 0
-#     self.__pilha1 = Pilha(tamanho)
-#     self.__pilha2 = Pilha(tamanho)
-
-#   def enfileira(self, valor):
-#     # O(1)
-#     if self.__quantidade >= self.__tamanho:
-#       raise OverflowError('Fila cheia')
-#     self.__pilha1.empilha(valor) # O(1)
-#     self.__quantidade = self.__quantidade + 1 # O(1)
-
-#   def desenfileira(self):
-#     # O(n + n) = O(n)
-#     if self.__quantidade <= 0:
-#       raise IndexError('Fila vazia')
-
-#     for i in range(self.__quantidade - 1): # n * O(1) = O(n)
-#       valor = self.__pilha1.desempilha() # O(1)
-#       self.__pilha2.empilha(valor) # O(1)
-#     dado = self.__pilha1.desempilha()
-#     for i in range(self.__quantidade - 1): # n * O(1) = # O(n)
-#       valor = self.__pilha2.desempilha() # O(1)
-#       self.__pilha1.empilha(valor) # O(1)
-#     self.__quantidade = self.__quantidade - 1
-#     return dado
-
-#   def frente(self):
-#     # O(n)
-#     if self.__quantidade <= 0:
-#       raise IndexError('Fila vazia')
-#     for i in range(self.__quantidade):
-#       valor = self.__pilha1.desempilha()
-#       self.__pilha2.empilha(valor)
-#     dado = valor
-#     for i in range(self.__quantidade):
-#       valor = self.__pilha2.desempilha()
-#       self.__pilha1.empilha(valor)
-#     return dado
 
 # class PilhaMin:
 
