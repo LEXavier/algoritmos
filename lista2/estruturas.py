@@ -386,7 +386,7 @@ class PilhaInt:
     return self.__tamanho
 
   def get_quantidade(self):
-    return self.__quantidade
+    return self.__quantidade 
   
 class PegaEntreMaiores:
   
@@ -459,12 +459,113 @@ class PegaEntreMaioresNaoOrdenado:
     return self.__tamanho
 
 class PegaEntreMaioresOrdenadoIneficiente:
-  def __init__(self):
-    pass
+  
+  def __init__(self, tamanho):
+    self.__dados = array('i', [0] * tamanho)
+    self.__quantidade = 0
+    self.__tamanho = tamanho
+  
+  def __sort__(self):
+    # Implementa BubbleSort para manter o array ordenado
+    
+    aux = 0
+    
+    for i in range(self.__tamanho):
+      for j in range(i, self.__tamanho):
+        if self.__dados[j] > self.__dados[i]:
+          aux = self.__dados[j]
+          self.__dados[j] = self.__dados[i]
+          self.__dados[i] = aux
+  
+  def insere(self, valor):
+    if self.__quantidade >= self.__tamanho:
+      raise OverflowError('TAD cheio')
+    
+    self.__dados[self.__quantidade] = valor
+    self.__sort__()
+    self.__quantidade = self.__quantidade + 1
+    
+  def kmaior(self, k):
+    if k > self.__quantidade:
+      raise IndexError('Index out of bounds')
+    
+    return self.__dados[k]
+  
+  def maior(self):
+    return self.kmaior(1)
+  
+  def segundo_maior(self):
+    return self.kmaior(2)
+    
+          
 
+def quick_sort(arr, tamanho):
+  
+  if tamanho < 2:
+    return arr
+  
+  
+  
+  
+  
+  
+      
+def escolhe_pivo(a, b, c):
+  
+  if (a <= b <= c) or (c <= b <= a):
+    return b
+  elif (b <= a <= c) or (c <= a <= b):
+    return a
+  else:
+    return c
+
+def quick_sort(arr, ini, fim):
+  
+  if fim - ini == 1:
+    if arr[ini] < arr[fim]:
+      valor = arr[ini]
+      arr[ini] = arr[fim]
+      arr[fim] = valor 
+    return arr
+  
+  pivo = arr[0]
+  
+  
+  
+  s1 = [arr[i] for i in range(1,fim) if arr[i] < pivo]
+  s2 = [arr[i] for i in range(1,fim) if arr[i] >= pivo]
+  
+  s1_ord = quick_sort(s1,)
+  
+  raise NotImplementedError
+    
+    
 class PegaEntreMaioresOrdenadoEficiente:
-  def __init__(self):
-    pass
+  
+  def __init__(self, tamanho):
+    self.__dados = array('B', bytes(tamanho))
+    self.__tamanho = tamanho
+    self.__quantidade = 0
+    
+    
+  def __sort__(self):
+    
+    arr = array('B', bytes(self.__quantidade))
+    
+    arr_ord = quick_sort(arr, 0, self.__quantidade)
+    
+    for i in range(self.__quantidade):
+      self.__dados[i] = arr_ord[i]
+    
+  def insere(self, valor):
+    if self.__quantidade >= self.__tamanho:
+      raise OverflowError
+    
+    self.__dados[self.__quantidade] = valor 
+    self.__quantidade = self.__quantidade + 1
+    self.__sort__(0, self.__tamanho)
+  
+    
 
 class PegaEntreMaioresQuickSelect:
   def __init__(self):
