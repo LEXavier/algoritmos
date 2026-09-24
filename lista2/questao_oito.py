@@ -71,7 +71,7 @@ class PegaEntreMaioresNaoOrdenado:
         
         return maiores[1]
     
-    def k_maior(self, k) -> str :
+    def k_maior(self, k:int) -> str :
         
         maiores = array('w', '\0' * self.tam)
         
@@ -96,10 +96,124 @@ class PegaEntreMaioresNaoOrdenado:
         return maiores[k]
     
     def tamanho(self):
-        
         return self.tam
-            
-            
-            
-        
     
+class PegaEntreMaioresOrdInef(PegaEntreMaioresNaoOrdenado):
+    
+    def __init__(self, n_max):
+        super().__init__(n_max)
+        
+    def insere(self, valor: str) -> None:
+        
+        # Implementa InsertionSort
+        # Complexidade O(n), porque TAD está sempre ordenado
+        
+        if self.tam >= self.n_max:
+            raise OverflowError
+        
+        i = 0
+        
+        while (i < self.tam) and (self.dados[i] >= valor): # O(n)
+            i += 1
+            
+        if (self.dados[i] < valor): # O(n)
+            for j in range(i, self.tam):
+                self.dados[j+1] = self.dados[j]
+        
+        self.dados[i] = valor # O(1)
+        
+        self.tam += 1
+        
+    def maior(self) -> str:
+        return self.dados[0]
+    
+    def segundo_maior(self) -> str:
+        return self.dados[1]
+    
+    def k_maior(self, k:int) -> str:
+        return self.dados[k-1]
+
+def pivoteia(arr:array, ini:int, fim:int) -> int:
+    
+    pivo = arr[fim]
+    
+    maiores = 0
+    
+    for i in range(ini, fim):
+        if arr[i] >= pivo:
+            maiores += 1
+            valor = arr[maiores]
+            arr[maiores] = arr[i]
+            arr[i] = valor
+    
+    arr[fim] = arr[maiores + 1]
+    arr[maiores + 1] = pivo
+    
+    return maiores + 1
+
+def quick_sort(arr:array, ini:int, fim:int) -> None:
+    
+    if fim <= ini :
+        return None
+    
+    pos_pivo = pivoteia(arr, ini, fim)
+    
+    quick_sort(arr, ini, pos_pivo - 1)
+    quick_sort(arr, pos_pivo + 1, fim)
+    
+def quick_select(arr:array[str], k:int, ini:int, fim:int) -> str:
+
+    if (fim - ini < 0):
+        raise IndexError
+    if (k < 0) or k > (fim - ini + 1):
+        raise IndexError("Índice procurado inválido")
+    
+    while ini <= fim:
+        pos_pivo = pivoteia(arr, ini, fim)
+
+        if pos_pivo == k:
+            return arr[pos_pivo]
+
+        if k < pos_pivo:
+            fim = pos_pivo - 1
+        else:
+            ini = pos_pivo + 1
+    
+    return arr[ini]
+    
+    
+    
+class PegaEntreMaioresOrdEfic(PegaEntreMaioresNaoOrdenado):
+    
+    def __init__(self, n_max:int) -> None:
+        super().__init__(n_max)
+    
+    def insere(self, valor:str) -> None:
+        
+        if self.tam >= self.n_max :
+            raise OverflowError('TAD cheio')
+        
+        self.dados[self.tam] = valor 
+        self.tam += 1
+        
+        quick_sort(self.dados, 0, self.tam)
+    
+    def k_maior(self, k: int) -> str:
+        return self.dados[k-1]
+    
+    def maior(self) -> str :
+        return self.dados[0]
+    
+    def segundo_maior(self) -> str:
+        return self.dados[1]
+   
+class PegaEntreMaioresQuickSDelect(PegaEntreMaioresNaoOrdenado):
+    
+    def k_maior(self, k: int) -> str:
+        return quick_select(self.dados, k, 0, self.tam - 1)
+    
+    def maior(self):
+        return self.k_maior(1)
+    
+    def segundo_maior(self) -> str:
+        return self.k_maior(2)
