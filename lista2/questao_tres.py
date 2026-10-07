@@ -53,3 +53,8 @@ class Fila2P:
             self.pilha1.empilha(valor)
         
         return dado
+
+    def libera(self):
+        self.pilha1.libera()
+        self.pilha2.libera()
+        self.tam = 0

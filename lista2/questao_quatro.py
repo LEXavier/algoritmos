@@ -26,9 +26,16 @@ def inverte_pilha_com_pilha(pilha:Pilha) -> Pilha:
 
     for i in range(tam):
         dado = pilha.desempilha()
-        pilha_aux.empilha(dado)
 
-    return pilha_aux
+        for j in range(tam - 1 - i):
+            pilha_aux.empilha(pilha.desempilha())
+
+        pilha.empilha(dado)
+
+        for j in range(tam - 1 - i):
+            pilha.empilha(pilha_aux.desempilha())
+
+    return pilha
 
 def inverte_pilha_com_duas_pilhas(pilha:Pilha) -> Pilha:
     # Questão 4.b

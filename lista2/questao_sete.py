@@ -9,7 +9,7 @@ def traduz_operando(char:str, vals:bytes):
 
 def computa_polonesa_reversa(n_var:int, vals:bytes, expr:str) -> int:
     
-    operandos = PilhaInt(n_var)
+    operandos = PilhaInt(len(expr))
     
     for c in expr:
         
@@ -39,40 +39,21 @@ def converte_parentizada_para_polonesa_reversa(n_var:int, expr: str) -> array[st
     
     pol_rev = FilaStr(2 * n_var - 1)
     
-    operandos = PilhaStr(n_var)
     operadores = PilhaStr(n_var-1)
-    
-    n_operandos = 0
-    opr = '\0'
     
     for c in expr:
         
         if ('A' <= c <= 'G'):
             
-            operandos.empilha(c)
-            n_operandos += 1
+            pol_rev.enfileira(c)
         
         elif (c == '+') or (c == '/') or (c == '*') or (c == '-'):
             
-            opr = c
+            operadores.empilha(c)
             
         elif (c == ')'):
             
-            if n_operandos == 1:
-                op = operandos.desempilha()
-                
-                pol_rev.enfileira(op)
-                pol_rev.enfileira(opr)
-            
-            elif n_operandos == 2:
-                
-                op2 = operandos.desempilha()
-                op1 = operandos.desempilha()
-                
-                pol_rev.enfileira(op2)
-            
-            else:
-                raise ValueError('Expressão inválida')
+            pol_rev.enfileira(operadores.desempilha())
     
     resp = array('w', '\0'* pol_rev.tam)
     

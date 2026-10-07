@@ -40,4 +40,8 @@ def inverte_fila_com_duas_filas(fila:Fila) -> Fila:
         for j in range(i+1):
             dado2 = fila_aux1.desenfileira()
             fila_aux2.enfileira(dado2)
-    return fila_aux2
+
+    for i in range(quantidade):
+        fila.enfileira(fila_aux2.desenfileira())
+
+    return fila

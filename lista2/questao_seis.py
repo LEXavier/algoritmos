@@ -11,9 +11,7 @@ class PilhaMin(Pilha):
     
     def empilha(self, valor:int) -> None:
         
-        menor = self.mins.topo()
-        
-        if (self.tam == 0) or (menor <= valor):
+        if (self.tam == 0) or (valor <= self.mins.topo()):
             self.mins.empilha(valor)
         
         super().empilha(valor)

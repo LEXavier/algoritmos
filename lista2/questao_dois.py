@@ -46,6 +46,8 @@ class Pilha2F:
             valor = self.fila2.desenfileira()
             self.fila1.enfileira(valor)
         
+        self.fila1.enfileira(dado)
+        
         return dado
         
     def libera(self) -> None:

@@ -88,12 +88,12 @@ class PegaEntreMaioresNaoOrdenado:
             
             if maiores[j] < valor:
                 
-                for p in range(j,i):
-                    maiores[p+1] = maiores[p]
+                for p in range(i, j, -1):
+                    maiores[p] = maiores[p-1]
                     
                 maiores[j] = valor
         
-        return maiores[k]
+        return maiores[k-1]
     
     def tamanho(self):
         return self.tam
@@ -117,8 +117,8 @@ class PegaEntreMaioresOrdInef(PegaEntreMaioresNaoOrdenado):
             i += 1
             
         if (self.dados[i] < valor): # O(n)
-            for j in range(i, self.tam):
-                self.dados[j+1] = self.dados[j]
+            for j in range(self.tam, i, -1):
+                self.dados[j] = self.dados[j-1]
         
         self.dados[i] = valor # O(1)
         
@@ -137,7 +137,7 @@ def pivoteia(arr:array, ini:int, fim:int) -> int:
     
     pivo = arr[fim]
     
-    maiores = 0
+    maiores = ini - 1
     
     for i in range(ini, fim):
         if arr[i] >= pivo:
@@ -196,7 +196,7 @@ class PegaEntreMaioresOrdEfic(PegaEntreMaioresNaoOrdenado):
         self.dados[self.tam] = valor 
         self.tam += 1
         
-        quick_sort(self.dados, 0, self.tam)
+        quick_sort(self.dados, 0, self.tam - 1)
     
     def k_maior(self, k: int) -> str:
         return self.dados[k-1]
@@ -210,7 +210,7 @@ class PegaEntreMaioresOrdEfic(PegaEntreMaioresNaoOrdenado):
 class PegaEntreMaioresQuickSDelect(PegaEntreMaioresNaoOrdenado):
     
     def k_maior(self, k: int) -> str:
-        return quick_select(self.dados, k, 0, self.tam - 1)
+        return quick_select(self.dados, k - 1, 0, self.tam - 1)
     
     def maior(self):
         return self.k_maior(1)

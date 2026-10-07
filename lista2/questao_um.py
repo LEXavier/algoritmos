@@ -31,7 +31,7 @@ class Deque:
     
     def __init__(self, n_max=1000):
         self.n_max = n_max
-        self.dados = array('w', bytes(n_max))
+        self.dados = array('w', '\0' * n_max)
         self.tam = 0
         
     def inicio(self) -> str: # Complexidade O(1)
@@ -53,9 +53,8 @@ class Deque:
         if self.tam >= self.n_max:
             raise OverflowError('Deque cheio')
         
-        i = 0
-        for i in range(self.tam) :
-            self.dados[i+1] = self.dados[i]
+        for i in range(self.tam, 0, -1) :
+            self.dados[i] = self.dados[i-1]
         
         self.dados[0] = valor
         self.tam += 1

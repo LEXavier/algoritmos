@@ -60,7 +60,7 @@ class PilhaInt:
     
     def __init__(self, n_max=1000) -> None: # Complexidade O(1)
         self.n_max = n_max
-        self.dados = array('B', bytes(n_max))
+        self.dados = array('i', [0] * n_max)
         self.tam = 0
     
     def empilha(self, valor: int) -> None: # Complexidade O(1)
@@ -86,6 +86,6 @@ class PilhaInt:
         return self.dados[self.tam - 1]
         
     def libera(self) -> None: # Complexidade O(1)
-        self.dados = array('B')
+        self.dados = array('i')
         self.tam = 0
         self.n_max = 0

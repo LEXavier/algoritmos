@@ -29,6 +29,8 @@ class SacoVaiEVem[t]:
             no.anterior = self.fim # type: ignore
             self.fim.proximo = no # type: ignore
             self.fim = no
+        
+        self.tam += 1
 
     def itera(self):
         atual = self.inicio
@@ -73,7 +75,11 @@ class SacoVaiEVem[t]:
                     atual.proximo.anterior = atual.anterior
                 else:
                     self.fim = atual.anterior
-        
+                
+                self.tam -= 1
+                return
+            
+            atual = atual.proximo
 
 class SacoTAD[t](Protocol):
     
